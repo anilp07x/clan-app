@@ -117,6 +117,119 @@ export interface WarData {
   opponent: WarClan;
 }
 
+export interface NoWarData {
+  state: 'notInWar';
+  reason: string;
+  message: string;
+}
+
+export interface PrivateWarData {
+  state: 'warPrivate';
+  reason: string;
+  message: string;
+  hasWarParticipation: boolean;
+  clanInfo: {
+    name: string;
+    level: number;
+    members: number;
+  };
+}
+
+export type WarResponse = WarData | NoWarData | PrivateWarData;
+
+// Tipos para Player Data
+export interface PlayerData {
+  tag: string;
+  name: string;
+  townHallLevel: number;
+  expLevel: number;
+  trophies: number;
+  bestTrophies: number;
+  donations: number;
+  donationsReceived: number;
+  attackWins: number;
+  defenseWins: number;
+  warStars: number;
+  clan?: {
+    tag: string;
+    name: string;
+    clanLevel: number;
+    badgeUrls: BadgeUrls;
+  };
+  league?: League;
+  role?: string;
+  builderBaseTrophies: number;
+  builderBaseLeague?: League;
+  achievements: Achievement[];
+  playerHouse: {
+    elements: unknown[];
+  };
+  labels: Label[];
+  troops: Troop[];
+  heroes: Hero[];
+  spells: Spell[];
+}
+
+export interface Achievement {
+  name: string;
+  stars: number;
+  value: number;
+  target: number;
+  info: string;
+  completionInfo: string | null;
+  village: string;
+}
+
+export interface Troop {
+  name: string;
+  level: number;
+  maxLevel: number;
+  village: string;
+}
+
+export interface Hero {
+  name: string;
+  level: number;
+  maxLevel: number;
+  village: string;
+  equipment?: Equipment[];
+}
+
+export interface Equipment {
+  name: string;
+  level: number;
+  maxLevel: number;
+  village: string;
+}
+
+export interface Spell {
+  name: string;
+  level: number;
+  maxLevel: number;
+  village: string;
+}
+
+export interface Label {
+  id: number;
+  name: string;
+  iconUrls: {
+    small: string;
+    medium: string;
+  };
+}
+
+// Tipos para Localizações
+export interface LocationData {
+  items: Location[];
+}
+
+export interface Location {
+  id: number;
+  name: string;
+  isCountry: boolean;
+  countryCode?: string;
+}
+
 export interface RaidSeason {
   state: string;
   startTime: string;

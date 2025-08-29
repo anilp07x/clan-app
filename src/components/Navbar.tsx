@@ -16,7 +16,7 @@ export function Navbar() {
     { name: 'Membros', href: '/members' },
     { name: 'Guerras', href: '/wars' },
     { name: 'Raids', href: '/raids' },
-    { name: 'Estatísticas', href: '/stats' },
+    { name: 'Buscar Jogador', href: '/player' },
   ];
 
   return (

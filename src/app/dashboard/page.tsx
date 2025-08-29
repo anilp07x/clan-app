@@ -3,14 +3,14 @@
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { MetricCard } from '@/components/MetricCard';
-import { TrophyChart, ParticipationChart } from '@/components/Charts';
+import { TrophyChart, ParticipationChart, RoleDistributionChart } from '@/components/Charts';
 import { useClanData, useMembers } from '@/hooks/useApi';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trophy, Users, Sword, Crown, Target, TrendingUp } from 'lucide-react';
 
 export default function Dashboard() {
   const { data: clanData, loading: clanLoading, error: clanError } = useClanData();
-  const { data: membersData, loading: membersLoading } = useMembers();
+  const { data: membersData } = useMembers();
 
   if (clanLoading) {
     return (
@@ -145,9 +145,10 @@ export default function Dashboard() {
           )}
 
           {/* Gráficos */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             <TrophyChart />
             <ParticipationChart />
+            <RoleDistributionChart />
           </div>
         </div>
       </main>

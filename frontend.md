@@ -16,7 +16,7 @@ Implemente o front-end de um dashboard em **Next.js + TailwindCSS + ShadCN/UI + 
   - **Navbar fixa no topo**:
     - Escudo do clã (ícone vindo da API ou placeholder).
     - Nome e tag do clã ao lado do escudo.
-    - Links horizontais simples: *Dashboard, Membros, Guerras, Raids, Estatísticas*.
+    - Links horizontais simples: *Dashboard, Membros, Guerras, Raids*.
     - Mobile-first → menu deve colapsar em ícone hamburguer, mas manter design minimalista.
   - **Conteúdo principal (main)**:
     - Grid responsivo de **cards** (1 coluna no mobile, 2–3 no desktop).

@@ -112,3 +112,9 @@ Códigos de status HTTP utilizados:
 - **Backend**: Protege o token da Supercell e faz as chamadas para a API externa
 - **Segurança**: Token da Supercell nunca é exposto no frontend
 - **Cache**: Configurado com `cache: "no-store"` para dados sempre atualizados
+Implementar testes unitários e de integração
+  PWA: Transformar em Progressive Web App
+  Cache: Implementar cache para melhor performance
+  Notificações: Sistema de notificações em tempo real
+  Temas: Sistema de temas claro/escuro
+  Internacionalização: Suporte a múltiplos idiomas

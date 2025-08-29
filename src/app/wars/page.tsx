@@ -6,7 +6,7 @@ import { useWar } from '@/hooks/useApi';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
-import { Sword, Users, Star, Target, Clock, Trophy } from 'lucide-react';
+import { Sword, Users, Star, Target, Clock } from 'lucide-react';
 
 export default function WarsPage() {
   const { data: warData, loading: warLoading, error: warError } = useWar();
@@ -36,21 +36,145 @@ export default function WarsPage() {
         <Navbar />
         <main className="pt-20 pb-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Guerra do Clã</h1>
+              <p className="text-gray-600">
+                Status atual da guerra e estatísticas dos participantes
+              </p>
+            </div>
+            
             <Card className="rounded-2xl shadow-md">
-              <CardContent className="p-6">
+              <CardContent className="p-8">
                 <div className="text-center">
-                  <Sword className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <Sword className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                   <h2 className="text-xl font-semibold text-gray-600 mb-2">
                     Nenhuma guerra ativa
                   </h2>
                   <p className="text-sm text-gray-500">
-                    {warError || 'O clã não está em guerra no momento.'}
+                    O clã não está participando de uma guerra no momento.
                   </p>
                 </div>
               </CardContent>
             </Card>
           </div>
         </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Verificar se é o estado especial de "não em guerra"
+  if (warData.state === 'notInWar') {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <main className="pt-20 pb-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Guerra do Clã</h1>
+              <p className="text-gray-600">
+                Status atual da guerra e estatísticas dos participantes
+              </p>
+            </div>
+            
+            <Card className="rounded-2xl shadow-md">
+              <CardContent className="p-8">
+                <div className="text-center">
+                  <Sword className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                  <h2 className="text-xl font-semibold text-gray-600 mb-2">
+                    {'reason' in warData ? warData.reason : 'Nenhuma guerra ativa'}
+                  </h2>
+                  <p className="text-sm text-gray-500">
+                    {'message' in warData ? warData.message : 'O clã não está participando de uma guerra no momento.'}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Verificar se é o estado de guerra privada/restrita
+  if (warData.state === 'warPrivate') {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <main className="pt-20 pb-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Guerra do Clã</h1>
+              <p className="text-gray-600">
+                Status atual da guerra e estatísticas dos participantes
+              </p>
+            </div>
+            
+            <Card className="rounded-2xl shadow-md">
+              <CardContent className="p-8">
+                <div className="text-center">
+                  <Sword className="h-16 w-16 text-yellow-500 mx-auto mb-4" />
+                  <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                    {'reason' in warData ? warData.reason : 'Guerra Privada'}
+                  </h2>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {'message' in warData ? warData.message : 'As informações da guerra atual não estão disponíveis publicamente.'}
+                  </p>
+                  
+                  {'clanInfo' in warData && (
+                    <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                      <h3 className="font-semibold text-blue-900 mb-2">Informações do Clã</h3>
+                      <div className="text-sm text-blue-700 space-y-1">
+                        <p><strong>Nome:</strong> {warData.clanInfo.name}</p>
+                        <p><strong>Nível:</strong> {warData.clanInfo.level}</p>
+                        <p><strong>Membros:</strong> {warData.clanInfo.members}</p>
+                        {warData.hasWarParticipation && (
+                          <p className="text-green-600 font-medium">✓ Clã participa de guerras</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Se chegamos aqui, deve ser uma guerra válida com dados completos
+  if (!('clan' in warData) || !('opponent' in warData)) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <main className="pt-20 pb-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Guerra do Clã</h1>
+              <p className="text-gray-600">
+                Status atual da guerra e estatísticas dos participantes
+              </p>
+            </div>
+            
+            <Card className="rounded-2xl shadow-md">
+              <CardContent className="p-8">
+                <div className="text-center">
+                  <Sword className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                  <h2 className="text-xl font-semibold text-gray-600 mb-2">
+                    Dados de guerra incompletos
+                  </h2>
+                  <p className="text-sm text-gray-500">
+                    Não foi possível carregar os dados completos da guerra.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </main>
+        <Footer />
       </div>
     );
   }
